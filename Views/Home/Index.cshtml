@@ -1,0 +1,37 @@
+﻿@model WebApp_OpenIDConnect_DotNet.Models.IndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    html {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    main {
+        margin: 20px;
+    }
+
+    #gallery-note {
+        font-size: smaller
+    }
+
+</style>
+
+
+<main>
+    <h1>&nbsp;</h1>
+    <hr />
+    <h2>Image Source: @Model.StorageAccountName</h2>
+    <hr />
+    <table>
+     @foreach (var imageUrl in Model.ImageUrls)
+     {
+        <tr><td><nobr>@imageUrl</nobr</td><td><a target="_blank" href="@imageUrl"><img src="@imageUrl" /></a></td></tr>
+        
+     }
+     </table>
+</main>
+
+<script type="text/javascript" src="https://alcdn.msauth.net/browser/2.13.0/js/msal-browser.min.js"></script>
