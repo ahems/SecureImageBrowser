@@ -1,15 +1,10 @@
-﻿using System;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using WebApp_OpenIDConnect_DotNet.Models;
 using WebApp_OpenIDConnect_DotNet.Helpers;
 using Microsoft.Identity.Web;
 using WebAppOpenIDConnectDotNet;
-using Azure.Storage.Blobs;
-using System.Text;
-using System.IO;
 using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Options;
 
@@ -20,7 +15,7 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
     {
         ITokenAcquisition _tokenAcquisition;
         
-        // make sure that appsettings.json is filled with the necessary details of the azure storage
+        // make sure that appsettings.json is filled with the necessary details of the azure storage. See appsettings.Development.json for example
         private readonly AzureStorageConfig storageConfig = null;
         private TelemetryClient telemetry;
 
@@ -40,33 +35,11 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
                 } );
         }
 
+        [AllowAnonymous]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
             return View();
-        }
-
-        [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
-        public async Task<IActionResult> Blob()
-        {
-            string message = await CreateBlob(new TokenAcquisitionTokenCredential(_tokenAcquisition));
-            ViewData["Message"] = message;
-            return View();
-        }
-
-        private static async Task<string> CreateBlob(TokenAcquisitionTokenCredential tokenCredential)
-        {
-            Uri blobUri = new Uri("https://sportsleaguestorage.blob.core.windows.net/test/Blob1.txt");
-            BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
-
-            string blobContents = "Blob created by Azure AD authenticated user.";
-            byte[] byteArray = Encoding.ASCII.GetBytes(blobContents);
-
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
-                await blobClient.UploadAsync(stream);
-            }
-            return "Blob successfully created";
         }
 
         [AllowAnonymous]

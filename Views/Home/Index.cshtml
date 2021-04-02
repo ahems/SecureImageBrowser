@@ -23,7 +23,7 @@
 <main>
     <h1>&nbsp;</h1>
     <hr />
-    <h2>Image Source: @Model.StorageAccountName</h2>
+    <h2>Storage Account Name: @Model.StorageAccountName</h2>
     <hr />
     <table>
      @foreach (var imageUrl in Model.ImageUrls)
@@ -34,4 +34,5 @@
      </table>
 </main>
 
+<!-- If we need to get anything via JavaScript, we can get it using this: --/>
 <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.13.0/js/msal-browser.min.js"></script>
