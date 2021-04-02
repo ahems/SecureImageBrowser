@@ -4,6 +4,7 @@
     {
         public string AccountName { get; set; }
         public string FullAccountName { get { return string.Format("https://{0}.blob.core.windows.net/", AccountName); } }
+        public string Scope { get { return string.Format("https://{0}.blob.core.windows.net/user_impersonation", AccountName); } }
         public string ImageContainer { get; set; }
     }
 }

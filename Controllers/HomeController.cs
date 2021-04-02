@@ -26,7 +26,7 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
             this.telemetry = telemetry;
         }
 
-        [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+        [AuthorizeForScopes(ScopeKeySection = "AzureAd:Scopes")]
         public IActionResult Index()
         {
             return View(new IndexViewModel() { 

@@ -8,7 +8,7 @@ products:
 - azure-active-directory
 - azure-storage
 description: "This is an example web app that will use the users' credentials to read all images from a configured directory in a configured Storage account, and serve also serve them up as AAD-authenticated image URL's."
-urlFragment: storage-dotnet-azure-ad-msal
+urlFragment: SecureImageBrowser
 ---
 
 # App sign-in and viewing images via the Azure Storage API and Microsoft identity platform

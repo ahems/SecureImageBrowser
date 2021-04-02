@@ -29,7 +29,7 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
         }
 
         // GET /api/images/thumbnails
-        [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+        [AuthorizeForScopes(ScopeKeySection = "AzureAd:Scopes")]
         [HttpGet("thumbnails")]
         public async Task<IActionResult> GetThumbNails()
         {
@@ -43,12 +43,12 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
             }
             catch (MicrosoftIdentityWebChallengeUserException ex)
             {
-                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { "https://storage.azure.com/user_impersonation" }, ex.MsalUiRequiredException);
+                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { storageConfig.Scope }, ex.MsalUiRequiredException);
                 return new OkResult();
             }
             catch (Microsoft.Identity.Client.MsalUiRequiredException ex)
             {
-                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { "https://storage.azure.com/user_impersonation" }, ex);
+                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { storageConfig.Scope }, ex);
                 return new OkResult();
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
             }
         }
         // GET /api/images/thumbnail
-        [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+        [AuthorizeForScopes(ScopeKeySection = "AzureAd:Scopes")]
         [HttpGet("thumbnail")]
         public async Task<IActionResult> GetThumbNail()
         {
@@ -77,12 +77,12 @@ namespace WebApp_OpenIDConnect_DotNet.Controllers
             }
             catch (MicrosoftIdentityWebChallengeUserException ex)
             {
-                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { "https://storage.azure.com/user_impersonation" }, ex.MsalUiRequiredException);
+                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { storageConfig.Scope }, ex.MsalUiRequiredException);
                 return new OkResult();
             }
             catch (Microsoft.Identity.Client.MsalUiRequiredException ex)
             {
-                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { "https://storage.azure.com/user_impersonation" }, ex);
+                await _tokenAcquisition.ReplyForbiddenWithWwwAuthenticateHeaderAsync(new string[] { storageConfig.Scope }, ex);
                 return new OkResult();
             }
             catch (Exception ex)
